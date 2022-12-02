@@ -1,0 +1,60 @@
+.header {
+    width: 100%;
+    height: 200px;
+    background-color: black;
+
+}
+
+.blogname {
+    display: flex;
+    color: wheat;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    text-decoration: none;
+
+
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.kategorieBlock {
+    width: 800px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.searchLoginBlock {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin: 30px;
+
+}
+
+
+
+.kategorier {
+
+    background: none;
+    color: wheat;
+    font-size: 18px;
+    text-decoration: none;
+
+}
+
+.loginButton {
+    background: none;
+    color: wheat;
+    font-size: 15px;
+    text-decoration: none;
+    margin: 10px;
+
+
+}
