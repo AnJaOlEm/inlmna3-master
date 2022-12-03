@@ -7,7 +7,8 @@ export const AuthContext = createContext();
 
 export const AuthContexProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
-  const [currentPost, setCurrentPost] = useState()
+  const [currentPost, setCurrentPost] = useState();
+  const [editing, setEditing] = useState();
 
   const login = async (user) => {
     const url = "http://localhost:8080/auth/login";
@@ -26,7 +27,11 @@ export const AuthContexProvider = ({ children }) => {
     localStorage.setItem("jwt", await response.text())
     console.log(user, " this is the user un conternertxt")
     setCurrentUser(user)
-    localStorage.setItem("user", JSON.stringify({ name: user.username, username: user.username }))
+    console.log(response, " this is the res in Context")
+    if (response.ok) {
+      localStorage.setItem("user", JSON.stringify({ name: user.username, username: user.username }))
+    }
+
 
     console.log(currentUser, " this is currentuser in context.js")
 
@@ -41,7 +46,7 @@ export const AuthContexProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, setCurrentUser, login, logout, currentPost, setCurrentPost }}
+      value={{ currentUser, setCurrentUser, login, logout, currentPost, setCurrentPost, editing, setEditing }}
     >
       {children}
     </AuthContext.Provider>

@@ -14,18 +14,17 @@ export async function getPosts(token) {
     return res
 }
 
-
-export async function createPost(title, value, token) {
+export async function updatePost(oldTitle, title, value, token) {
 
     const user = localStorage.getItem("user")
 
     const getUserName = JSON.parse(user)
 
-    console.log(getUserName.name, " this is wahat um im lookk111")
 
     const data = {
         title: title,
         content: value,
+        oldTitle: oldTitle,
         name: getUserName.name
     }
 
@@ -38,6 +37,32 @@ export async function createPost(title, value, token) {
             'Authorization': bearerAuth(token)
         },
 
+
+    }
+    const res = await instance.put('/post/update', { "username": data.name, "title": data.title, "content": data.content, "oldTitle": data.oldTitle }, customCfg)
+
+    return res
+
+}
+
+
+export async function createPost(title, value, token) {
+
+    const user = localStorage.getItem("user")
+
+    const getUserName = JSON.parse(user)
+
+    const data = {
+        title: title,
+        content: value,
+        name: getUserName.name
+    }
+
+    const customCfg = {
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            'Authorization': bearerAuth(token)
+        },
 
     }
     const res = await instance.post('/post/create', { "username": data.name, "title": data.title, "content": data.content }, customCfg)

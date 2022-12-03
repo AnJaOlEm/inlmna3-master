@@ -11,7 +11,7 @@ const Home = () => {
   const [blogPosts, setBlogPosts] = useState();
 
 
-  const { login, setCurrentUser, currentUser, setCurrentPost } = useContext(AuthContext);
+  const { login, setCurrentUser, currentUser, setCurrentPost, setEditing } = useContext(AuthContext);
 
   useEffect(() => {
     getPosts().then(res => setBlogPosts(res.data))
@@ -20,11 +20,15 @@ const Home = () => {
   }, []);
 
   const handleDelete = (post) => {
-    deletePost(post.creator.name, post.title, token).then(getPosts().then(res => setBlogPosts(res.data)))
+    const token = localStorage.getItem("jwt")
+    deletePost(post.creator.name, post.title, token);
+    getPosts(token).then(res => setBlogPosts(res.data))
 
   }
 
   const handleEdit = (post) => {
+    setEditing(true);
+    console.log(post, " this is post in handleedit")
     setCurrentPost(post)
     navigate("/addpost")
   }
@@ -57,7 +61,7 @@ const Home = () => {
       {blogPosts?.map((post, i) => (
         <div key={i} className="border border-striped m-3">
           <div>{post.title}</div>
-          <div>{post.content} <br />name: {post.creator.name}</div>
+          <div>{post.content} <br />name: {post.creator?.name}</div>
           {currentUser?.name === post?.creator?.name ? <div><button onClick={() => handleDelete(post)}>delete</button> <button onClick={() => handleEdit(post)}>Edit</button></div> : null}
         </div>
       ))

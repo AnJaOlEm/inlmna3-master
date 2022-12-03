@@ -7,16 +7,18 @@ import "easymde/dist/easymde.min.css";
 import styles from './css/Addpost.css'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context';
-import { createPost } from "../apiCalls";
+import { createPost, updatePost } from "../apiCalls";
 
 
-export const Addpost = ({ titles, content }) => {
+export const Addpost = ({ title, content }) => {
     //Skapar States för de värden som ska ändras.
-    const [value, setValue] = React.useState("");
-    const [title, setTitle] = React.useState('');
+    const [postContent, setPostContent] = React.useState("");
+    const [postTitle, setPostTitle] = React.useState('');
     const [tags, setTags] = React.useState('');
     const [ingress, setIngress] = React.useState('');
     const [imageUrl, setImageUrl] = React.useState('');
+    const [oldTitle, setOldTitle] = React.useState();
+
 
     const inputFileRef = React.useRef(null);
 
@@ -24,16 +26,19 @@ export const Addpost = ({ titles, content }) => {
 
     const navigate = useNavigate();
 
-    const { login, setCurrentUser, currentUser, currentPost } = useContext(AuthContext);
+    const { login, setCurrentUser, currentUser, currentPost, editing } = useContext(AuthContext);
 
     console.log(currentPost, " what here")
     const token = localStorage.getItem("jwt")
 
+
     useEffect(() => {
-        if (currentPost) {
-            setValue(currentPost.title)
-            setTitle(currentPost.title)
-        }
+        console.log(currentPost, " This is current post in add post")
+        setPostContent(currentPost?.content)
+        setPostTitle(currentPost?.title)
+        setOldTitle(currentPost?.title)
+
+
     }, [])
 
 
@@ -54,8 +59,8 @@ export const Addpost = ({ titles, content }) => {
     };
     const onClickRemoveImage = () => { };
 
-    const onChange = React.useCallback((value) => {
-        setValue(value);
+    const onChange = React.useCallback((content) => {
+        setPostContent(content);
     }, []);
 
     const options = React.useMemo(
@@ -81,18 +86,18 @@ export const Addpost = ({ titles, content }) => {
                     className="title"
                     variant="standard"
                     placeholder="Title..."
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    value={postTitle}
+                    onChange={(e) => setPostTitle(e.target.value)}
                     fullWidth
                 />
                 <SimpleMDE
                     className="editor"
-                    value={value}
+                    value={postContent}
                     onChange={onChange}
                     options={options}
                 />
                 <div >
-                    <Button className="button" size="large" variant="contained" onClick={() => { createPost(title, value); navigate("/") }}>
+                    <Button className="button" size="large" variant="contained" onClick={() => { editing ? updatePost(oldTitle, postTitle, postContent, token) : createPost(postTitle, postContent, token); navigate("/") }}>
                         Publicera
                     </Button>
                     <Button size="large">Ta bort</Button>
