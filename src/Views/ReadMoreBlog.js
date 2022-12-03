@@ -49,6 +49,10 @@ const ReadMoreBlog = (data) => {
     //     console.log(postAuthor, " we herer now")
     // }
 
+    async function handleUpdate() {
+
+    }
+
 
 
     async function handelDelete() {
