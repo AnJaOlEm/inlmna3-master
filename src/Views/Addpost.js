@@ -14,11 +14,8 @@ import { Header } from "../components/Header";
 export const Addpost = ({ title, content }) => {
     //Skapar States för de värden som ska ändras.
     const [postContent, setPostContent] = React.useState("");
-    const [postTitle, setPostTitle] = React.useState('');
-    const [tags, setTags] = React.useState('');
-    const [ingress, setIngress] = React.useState('');
-    const [imageUrl, setImageUrl] = React.useState('');
-    const [oldTitle, setOldTitle] = React.useState();
+    const [postTitle, setPostTitle] = React.useState("");
+    const [oldTitle, setOldTitle] = React.useState("");
 
 
     const inputFileRef = React.useRef(null);
@@ -44,25 +41,28 @@ export const Addpost = ({ title, content }) => {
 
 
 
-    const handleChangeFile = async () => {
-        try {
-            const formData = new FormData();
-            const file = Event.target.files[0];
-            formData.append('image', file);
-            const { data } = await ('');
+    // const handleChangeFile = async () => {
+    //     try {
+    //         const formData = new FormData();
+    //         const file = Event.target.files[0];
+    //         formData.append('image', file);
+    //         const { data } = await ('');
 
-            setImageUrl(data.url);
+    //         setImageUrl(data.url);
 
-        } catch (err) {
-            console.warn(err);
-            alert('Error');
-        }
-    };
-    const onClickRemoveImage = () => { };
+    //     } catch (err) {
+    //         console.warn(err);
+    //         alert('Error');
+    //     }
+    // };
+    // const onClickRemoveImage = () => { };
 
     const onChange = React.useCallback((content) => {
         setPostContent(content);
     }, []);
+
+
+
 
     const options = React.useMemo(
         () => ({
@@ -92,6 +92,7 @@ export const Addpost = ({ title, content }) => {
                     value={postTitle}
                     onChange={(e) => setPostTitle(e.target.value)}
                     fullWidth
+
                 />
                 <SimpleMDE
                     className="editor"

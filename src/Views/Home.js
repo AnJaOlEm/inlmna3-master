@@ -2,9 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../context';
 import { Header } from "../components/Header";
-import styles from "./css/Home.css";
-import Post from "../components/Post";
-import { Token } from "@mui/icons-material";
 import { getPosts, deletePost } from "../apiCalls";
 import Register from "../components/Register";
 
@@ -20,10 +17,12 @@ const Home = () => {
     setCurrentUser(getLocalUser)
   }, []);
 
-  const handleDelete = (post) => {
+  const handleDelete = async (post) => {
     const token = localStorage.getItem("jwt")
-    deletePost(post.creator.name, post.title, token);
-    getPosts(token).then(res => setBlogPosts(res.data))
+    let res = await deletePost(post.creator.username, post.title, token).then(
+      getPosts(token))
+    setBlogPosts(res)
+    setCurrentPost(null)
 
   }
 
@@ -44,7 +43,7 @@ const Home = () => {
         <div key={i} className="border border-striped m-3">
           <div>{post.title}</div>
           <div>{post.content} <br />name: {post.creator?.name}</div>
-          {currentUser?.name === post?.creator?.name ? <div><button onClick={() => handleDelete(post)}>delete</button> <button onClick={() => handleEdit(post)}>Edit</button></div> : null}
+          {currentUser?.name === post?.creator?.username ? <div><button onClick={() => handleDelete(post)}>delete</button> <button onClick={() => handleEdit(post)}>Edit</button></div> : null}
         </div>
       ))
       }
