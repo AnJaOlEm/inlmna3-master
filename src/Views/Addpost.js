@@ -8,6 +8,7 @@ import styles from './css/Addpost.css'
 import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context';
 import { createPost, updatePost } from "../apiCalls";
+import { Header } from "../components/Header";
 
 
 export const Addpost = ({ title, content }) => {
@@ -79,7 +80,9 @@ export const Addpost = ({ title, content }) => {
     );
 
     return (
+        
         <div className="add-post-page">
+            <Header/>
             <Paper className="paper">
 
                 <TextField

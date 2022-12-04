@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom';
 
 export default function Register() {
 
@@ -39,14 +40,36 @@ export default function Register() {
 
   return (
     <div className='container-fluid'>
-      <div className='border border-secondary rounded p-2'>
-        <input placeholder='Username' className='m-1 rounded border-secondary' onChange={(e) => { setUsername(e.target.value) }} value={username} />
-        <input placeholder='Password' className='m-1 rounded border-secondary' onChange={(e) => { setPassword(e.target.value) }} value={password} />
-        <input placeholder='Name' className='m-1 rounded border-secondary' onChange={(e) => { setName(e.target.value) }} value={name} />
-
-        <button className='btn btn-primary p-2 m-1' onClick={registerUser}>Register user</button>
+      
+      <form>
+    <div className=''>
+        <div className='border border-secondary rounded p-2 sm-8'>
+          <div className='form-group row'>
+              <div className=''>
+                <input placeholder='Username' className='m-1 rounded border-secondary' onChange={(e) => { setUsername(e.target.value) }} value={username} required/>
+              </div>
+          </div>
+        <div className='form-group row'>
+            <div className=''>
+              <input placeholder='Password' className='m-1 rounded border-secondary' onChange={(e) => { setPassword(e.target.value) }} value={password} required/>
+            </div>
+        </div>
+        <div className='form-group row'>
+            <div className=''>
+            <input placeholder='Name' className='m-1 rounded border-secondary' onChange={(e) => { setName(e.target.value) }} value={name} required/>
+            </div>
+        </div>
+        <div className='form-group row'>
+            <div className=''>
+            <button className='btn btn-primary p-2 m-1 form-group row' onClick={registerUser} >Register user</button>
+            </div>
+        </div>
+        
       </div>
     </div>
+    </form>
+    </div>
+
   )
 }
 

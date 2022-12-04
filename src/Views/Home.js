@@ -6,6 +6,7 @@ import styles from "./css/Home.css";
 import Post from "../components/Post";
 import { Token } from "@mui/icons-material";
 import { getPosts, deletePost } from "../apiCalls";
+import Register from "../components/Register";
 
 const Home = () => {
   const [blogPosts, setBlogPosts] = useState();
@@ -32,32 +33,13 @@ const Home = () => {
     setCurrentPost(post)
     navigate("/addpost")
   }
-
-  // const getAllBlogPosts = async () => {
-  //   let token = localStorage.getItem("jwt");
-
-  //   let response = await fetch("http://localhost:8080/post/all", {
-  //     method: "GET",
-  //     mode: 'no-cors',
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Authorization": `Bearer ${token}`
-  //     },
-  //   }).then((res) => res.json()asd);
-
-  //   // update the state
-  //   setBlogPosts(await response);
-
-  // }
   const navigate = useNavigate();
   const token = localStorage.getItem("jwt")
-
-
-  //
 
   return (
     <>
       <Header />
+      <div className="container-fluid">
       {blogPosts?.map((post, i) => (
         <div key={i} className="border border-striped m-3">
           <div>{post.title}</div>
@@ -66,6 +48,7 @@ const Home = () => {
         </div>
       ))
       }
+      </div>
 
     </>
   );

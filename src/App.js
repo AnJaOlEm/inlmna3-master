@@ -54,23 +54,9 @@ function App() {
   return (
     <div className='App'>
 
-      {/*<Register /> 
-<BrowserRouter>
-
-
-  <Route path="/" exact component={Home}/>
-
-
-
-  <Routes>
-  <Route path="contact" element={<Home />} />
-</Routes>
-
-</BrowserRouter>
-*/}
-
       <RouterProvider router={router} />
       <Register />
+      
     </div>
   );
 

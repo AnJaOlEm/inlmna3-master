@@ -24,31 +24,6 @@ const ReadMoreBlog = (data) => {
 
     let location = useLocation();
 
-    // const { author } = location.state
-
-
-    // useEffect(() => {
-    //     getBlogPost()
-
-    // }, [])
-
-    // async function getBlogPost() {
-    //     let blogId = location.pathname.split("/")[2];
-    //     let response = await fetch("http://localhost:8080/api/blog/" + blogId).then(res => res.json())
-    //     console.log(response, " res po nse ")
-    //     setCurrenPost(response);
-    //     getpostAuthor(response.user_id)
-
-
-    // }
-
-    // async function getpostAuthor(id) {
-    //     let response = await fetch("http://localhost:8080/api/users/getuser/" + id)
-    //         .then(res => res.json())
-    //         .then(data => setPostAuthor(data.rows[0]))
-    //     console.log(postAuthor, " we herer now")
-    // }
-
     async function handleUpdate() {
 
     }
